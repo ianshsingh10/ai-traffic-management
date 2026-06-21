@@ -2,7 +2,7 @@
  * API client — talks to the Flask backend on http://localhost:5000
  */
 
-const BASE_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:5000";
+const BASE_URL = process.env.REACT_APP_API_URL || "http://localhost:5000";
 
 async function get(path) {
   const res = await fetch(`${BASE_URL}${path}`);
