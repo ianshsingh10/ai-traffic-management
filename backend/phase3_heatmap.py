@@ -101,11 +101,11 @@ for month in MONTH_ORDER:
         if local_vol < 10:
             continue
             
-        if local_vol > 400:
+        if local_vol > 4000:
             priority, radius = "CRITICAL", 25
-        elif local_vol > 200:
+        elif local_vol > 2000:
             priority, radius = "HIGH", 20
-        elif local_vol > 75:
+        elif local_vol > 750:
             priority, radius = "MEDIUM", 15
         else:
             priority, radius = "LOW", 8
