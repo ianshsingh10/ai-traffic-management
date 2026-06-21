@@ -2,7 +2,7 @@
  * API client — talks to the Flask backend on http://localhost:5000
  */
 
-const BASE_URL = "http://localhost:5000";
+const BASE_URL = "https://ai-traffic-management-c53w.onrender.com";
 
 async function get(path) {
   const res = await fetch(`${BASE_URL}${path}`);
