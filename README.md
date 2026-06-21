@@ -22,8 +22,7 @@
    4. `python backend/phase3_heatmap.py`     → builds the two Folium maps
    5. Copy maps so the React app can load them:
       ```bash
-      mkdir -p frontend/public/maps
-      cp maps/heatmap_live.html maps/heatmap_clusters.html frontend/public/maps/
+      copy maps/*.html frontend/public/maps/
       ```
    6. Start the backend:
       ```bash
