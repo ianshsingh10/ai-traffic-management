@@ -1,6 +1,6 @@
 pandas>=2.2.3
 numpy==1.26.4
-scikit-learn==1.4.1
+scikit-learn>=1.4.2
 folium==0.16.0
 flask==3.0.2
 flask-cors==4.0.0
