@@ -1,4 +1,4 @@
-   <<<<<<< HEAD
+ 
    # ParkAlert — Flipkart Gridlock 2.0
 
    AI-driven parking intelligence system. Detects illegal parking hotspots
@@ -54,6 +54,5 @@
    - `GET /api/schedule`             — AI patrol schedule
    - `GET /api/trends`               — hourly/monthly/vehicle breakdowns
    - `GET /api/violations`           — paginated raw records
-   =======
-   # ai-traffic-management
-   >>>>>>> 2bce4b74c0593f301e52df60cfbdab822f4a3610
+
+
