@@ -31,7 +31,7 @@ import pandas as pd
 import json
 from pathlib import Path
 
-DATA_DIR = Path("../data")
+DATA_DIR = Path("./data")
 
 print("=" * 55)
 print("  PHASE 5 — IMPACT SIMULATION")

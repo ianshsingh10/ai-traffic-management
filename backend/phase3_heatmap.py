@@ -1,23 +1,20 @@
 """
-Phase 3 — Heatmap Builder
+Phase 3 — Heatmap Builder (Leap Year Overlap Fix & Aggressive Deduplication)
 Flipkart Gridlock 2.0 | Parking Intelligence System
 Run: python backend/phase3_heatmap.py
-Reads:  data/df_clusters.csv, data/hotspots.json, data/patrol_schedule.json
-Writes: maps/heatmap_live.html, maps/heatmap_clusters.html
 """
 
 import pandas as pd
 import json
 import folium
-from folium.plugins import HeatMap, HeatMapWithTime
+from folium.plugins import HeatMap, TimestampedGeoJson
 from pathlib import Path
 
 # ── CONFIG ───────────────────────────────────────────────────────────────────
-DATA_DIR = Path("../data")
-MAPS_DIR = Path("../maps")
+DATA_DIR = Path("./data")
+MAPS_DIR = Path("./maps")
 MAPS_DIR.mkdir(exist_ok=True)
 
-# Bengaluru city centre
 MAP_CENTER = [12.9716, 77.5946]
 MAP_ZOOM   = 12
 
@@ -30,26 +27,46 @@ PRIORITY_COLORS = {
 
 MONTH_ORDER = ["November", "December", "January", "February", "March"]
 
-# ── LOAD ─────────────────────────────────────────────────────────────────────
+MONTH_DATES = {
+    "November": "2023-11-01T00:00:00",
+    "December": "2023-12-01T00:00:00",
+    "January":  "2024-01-01T00:00:00",
+    "February": "2024-02-01T00:00:00",
+    "March":    "2024-03-01T00:00:00"
+}
+
+# ── LOAD & AGGRESSIVE DEDUPLICATE ────────────────────────────────────────────
 print("=" * 55)
-print("  PHASE 3 — HEATMAP BUILDER")
+print("  PHASE 3 — HEATMAP BUILDER (CLEAN ZONES EDITION)")
 print("=" * 55)
 
-print("\n[1/4] Loading Phase 2 outputs...")
+print("\n[1/4] Loading and cleaning Phase 2 outputs...")
 df = pd.read_csv(DATA_DIR / "df_clusters.csv")
 
 with open(DATA_DIR / "hotspots.json") as f:
-    hotspots = json.load(f)
+    raw_hotspots = json.load(f)
 
 with open(DATA_DIR / "patrol_schedule.json") as f:
     patrol = json.load(f)
 
-print(f"      df_clusters   : {len(df):,} rows")
-print(f"      hotspots      : {len(hotspots)} clusters")
-print(f"      patrol_sched  : {len(patrol)} entries")
+# AGGRESSIVE SPATIAL DEDUPLICATION (Fixes concentric circles via coordinate merging)
+unique_hotspots = {}
+for h in raw_hotspots:
+    # Rounding to 3 decimal places creates a ~110 meter grid to merge nearby overlaps
+    coord_key = (round(h["centroid_lat"], 3), round(h["centroid_lng"], 3))
+    
+    # If location is new, or has a higher risk score than existing, keep the worst-case scenario
+    if coord_key not in unique_hotspots or h.get("risk_score", 0) > unique_hotspots[coord_key].get("risk_score", 0):
+        unique_hotspots[coord_key] = h
 
-# ── MAP 1: HeatMapWithTime (time-slider) ─────────────────────────────────────
-print("\n[2/4] Building HeatMapWithTime (month-by-month slider)...")
+hotspots = list(unique_hotspots.values())
+
+print(f"      df_clusters   : {len(df):,} rows")
+print(f"      raw hotspots  : {len(raw_hotspots)} (contained overlaps)")
+print(f"      clean hotspots: {len(hotspots)} (merged distinct zones)")
+
+# ── MAP 1: DYNAMIC ZONES & STATIC BACKGROUND ─────────────────────────────────
+print("\n[2/4] Building Dynamic Zones Animation...")
 
 m1 = folium.Map(
     location=MAP_CENTER,
@@ -57,74 +74,102 @@ m1 = folium.Map(
     tiles="CartoDB dark_matter",
 )
 
-# Build one heatmap layer per month in order
-heat_data = []
-time_index = []
+sample_size = min(len(df), 10000)
+sampled_df = df.sample(n=sample_size, random_state=42)
+static_heat_data = sampled_df[["latitude", "longitude", "impact_score"]].values.tolist()
 
-for month in MONTH_ORDER:
-    month_df = df[df["month_name"] == month]
-    if len(month_df) == 0:
-        continue
-    points = month_df[["latitude", "longitude", "impact_score"]].values.tolist()
-    heat_data.append(points)
-    time_index.append(month)
-    print(f"      {month:<12}: {len(month_df):,} violations")
-
-HeatMapWithTime(
-    heat_data,
-    index=time_index,
-    auto_play=False,
-    max_opacity=0.85,
-    min_opacity=0.1,
+HeatMap(
+    static_heat_data,
     radius=14,
+    max_zoom=14,
     gradient={0.2: "#1a9850", 0.4: "#fee08b", 0.6: "#fd8d3c", 0.8: "#e24b4a", 1.0: "#800026"},
-    name="Violations by month",
+    min_opacity=0.1,
 ).add_to(m1)
 
-# Add cluster markers on top
-for h in hotspots:
-    color  = PRIORITY_COLORS.get(h["priority"], "#888")
-    radius = max(10, min(40, int(h["risk_score"] / 4)))
+monthly_features = []
 
-    popup_html = f"""
-    <div style='font-family:sans-serif;width:220px;'>
-      <div style='background:{color};color:#fff;padding:8px 12px;border-radius:6px 6px 0 0;'>
-        <b style='font-size:14px;'>{h['top_station']}</b><br>
-        <span style='font-size:11px;opacity:.85;'>{h['priority']} — Score {h['risk_score']}/100</span>
-      </div>
-      <div style='padding:10px 12px;background:#1a1a2e;color:#eee;border-radius:0 0 6px 6px;'>
-        <table style='font-size:12px;width:100%;'>
-          <tr><td style='color:#aaa;'>Violations</td><td style='text-align:right;'><b>{h['total_violations']:,}</b></td></tr>
-          <tr><td style='color:#aaa;'>Peak hour</td><td style='text-align:right;'><b>{h['peak_hour']:02d}:00</b></td></tr>
-          <tr><td style='color:#aaa;'>Top vehicle</td><td style='text-align:right;'><b>{h['top_vehicle']}</b></td></tr>
-          <tr><td style='color:#aaa;'>Top violation</td><td style='text-align:right;'><b>{h['top_violation'][:18]}</b></td></tr>
-          <tr><td style='color:#aaa;'>Weekend %</td><td style='text-align:right;'><b>{h['weekend_pct']}%</b></td></tr>
-        </table>
-      </div>
-    </div>
-    """
+for month in MONTH_ORDER:
+    date_str = MONTH_DATES.get(month)
+    month_df = df[df["month_name"] == month]
+    
+    for h in hotspots:
+        near_mask = (abs(month_df['latitude'] - h['centroid_lat']) < 0.015) & \
+                    (abs(month_df['longitude'] - h['centroid_lng']) < 0.015)
+        
+        local_vol = near_mask.sum()
+        
+        if local_vol < 10:
+            continue
+            
+        if local_vol > 400:
+            priority, radius = "CRITICAL", 25
+        elif local_vol > 200:
+            priority, radius = "HIGH", 20
+        elif local_vol > 75:
+            priority, radius = "MEDIUM", 15
+        else:
+            priority, radius = "LOW", 8
+            
+        color = PRIORITY_COLORS.get(priority, "#888")
+        
+        popup_html = f"""
+        <div style='font-family:sans-serif;width:220px;'>
+          <div style='background:{color};color:#fff;padding:8px 12px;border-radius:6px 6px 0 0;'>
+            <b style='font-size:14px;'>{h['top_station']}</b><br>
+            <span style='font-size:11px;opacity:.85;'>{month} — {priority}</span>
+          </div>
+          <div style='padding:10px 12px;background:#1a1a2e;color:#eee;border-radius:0 0 6px 6px;'>
+            <table style='font-size:12px;width:100%;'>
+              <tr><td style='color:#aaa;'>Monthly Violations</td><td style='text-align:right;'><b>{local_vol:,}</b></td></tr>
+            </table>
+          </div>
+        </div>
+        """
+        
+        monthly_features.append({
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [h["centroid_lng"], h["centroid_lat"]]
+            },
+            "properties": {
+                "time": date_str,
+                "popup": popup_html,
+                "icon": "circle",
+                "iconstyle": {
+                    "fillColor": color,
+                    "fillOpacity": 0.4,
+                    "stroke": True,
+                    "color": color,
+                    "weight": 2,
+                    "radius": radius
+                }
+            }
+        })
 
-    folium.CircleMarker(
-        location=[h["centroid_lat"], h["centroid_lng"]],
-        radius=radius,
-        color=color,
-        fill=True,
-        fill_color=color,
-        fill_opacity=0.25,
-        weight=2,
-        popup=folium.Popup(popup_html, max_width=240),
-        tooltip=f"{h['top_station']} | {h['priority']} | Score {h['risk_score']}",
-    ).add_to(m1)
+geojson_data = {
+    "type": "FeatureCollection",
+    "features": monthly_features
+}
 
-# Title overlay
+TimestampedGeoJson(
+    geojson_data,
+    transition_time=400,
+    period="P1M",
+    duration="P27D", # LEAP YEAR FIX: Hard-kills the marker after 27 days so it cannot overlap into the next month
+    add_last_point=False,
+    auto_play=False,
+    time_slider_drag_update=True
+).add_to(m1)
+
 title_html = """
 <div style='position:absolute;top:12px;left:60px;z-index:1000;
      background:rgba(10,10,30,0.88);color:#fff;padding:10px 16px;
      border-radius:8px;border:1px solid rgba(255,255,255,0.15);
      font-family:sans-serif;'>
-  <div style='font-size:15px;font-weight:600;'>ParkAlert — Bengaluru</div>
+  <div style='font-size:15px;font-weight:600;'>ParkAlert Dynamic Zones</div>
   <div style='font-size:11px;opacity:.7;margin-top:2px;'>
-    115,400 violations · Nov 2023 – Mar 2024 · Use slider to explore by month
+    Nov 2023 – Mar 2024 · Clean Consolidated Zones
   </div>
 </div>
 """
@@ -134,8 +179,8 @@ out1 = MAPS_DIR / "heatmap_live.html"
 m1.save(str(out1))
 print(f"      Saved: maps/heatmap_live.html")
 
-# ── MAP 2: Cluster overview map ───────────────────────────────────────────────
-print("\n[3/4] Building cluster overview map...")
+# ── MAP 2: STATIC OVERVIEW & PATROL SCHEDULE ─────────────────────────────────
+print("\n[3/4] Building static cluster overview map...")
 
 m2 = folium.Map(
     location=MAP_CENTER,
@@ -145,11 +190,11 @@ m2 = folium.Map(
 
 # Full static heatmap background
 all_points = df[["latitude", "longitude", "impact_score"]].values.tolist()
+
 HeatMap(
     all_points,
     radius=12,
     max_zoom=14,
-    max_val=df["impact_score"].max(),
     gradient={0.2: "#1a9850", 0.5: "#fee08b", 0.75: "#fd8d3c", 1.0: "#e24b4a"},
     min_opacity=0.3,
 ).add_to(m2)
@@ -169,7 +214,7 @@ for h, p in zip(hotspots, patrol):
     <div style='font-family:sans-serif;width:240px;'>
       <div style='background:{color};color:#fff;padding:8px 12px;border-radius:6px 6px 0 0;'>
         <b style='font-size:14px;'>{h['top_station']}</b><br>
-        <span style='font-size:11px;opacity:.85;'>{h['priority']} · Score {h['risk_score']}/100 · {h['total_violations']:,} violations</span>
+        <span style='font-size:11px;opacity:.85;'>{h['priority']} · Score {h['risk_score']}/100</span>
       </div>
       <div style='padding:10px 12px;background:#fff;border-radius:0 0 6px 6px;'>
         <div style='font-size:11px;font-weight:600;color:#333;margin-bottom:6px;'>
@@ -214,34 +259,6 @@ for h, p in zip(hotspots, patrol):
         ),
     ).add_to(m2)
 
-# Legend
-legend_html = """
-<div style='position:absolute;bottom:30px;left:30px;z-index:1000;
-     background:rgba(255,255,255,0.95);padding:12px 16px;
-     border-radius:8px;border:1px solid #ddd;font-family:sans-serif;'>
-  <div style='font-size:12px;font-weight:600;margin-bottom:8px;'>Priority level</div>
-  <div style='display:flex;align-items:center;gap:8px;margin-bottom:4px;'>
-    <div style='width:12px;height:12px;border-radius:50%;background:#E24B4A;'></div>
-    <span style='font-size:11px;'>Critical (&ge;70)</span>
-  </div>
-  <div style='display:flex;align-items:center;gap:8px;margin-bottom:4px;'>
-    <div style='width:12px;height:12px;border-radius:50%;background:#EF9F27;'></div>
-    <span style='font-size:11px;'>High (40–69)</span>
-  </div>
-  <div style='display:flex;align-items:center;gap:8px;margin-bottom:4px;'>
-    <div style='width:12px;height:12px;border-radius:50%;background:#639922;'></div>
-    <span style='font-size:11px;'>Medium (20–39)</span>
-  </div>
-  <div style='display:flex;align-items:center;gap:8px;'>
-    <div style='width:12px;height:12px;border-radius:50%;background:#378ADD;'></div>
-    <span style='font-size:11px;'>Low (&lt;20)</span>
-  </div>
-  <div style='margin-top:8px;padding-top:8px;border-top:1px solid #eee;
-       font-size:10px;color:#888;'>Click any circle for patrol schedule</div>
-</div>
-"""
-m2.get_root().html.add_child(folium.Element(legend_html))
-
 out2 = MAPS_DIR / "heatmap_clusters.html"
 m2.save(str(out2))
 print(f"      Saved: maps/heatmap_clusters.html")
@@ -250,9 +267,4 @@ print(f"      Saved: maps/heatmap_clusters.html")
 print("\n[4/4] Done.")
 print("\n" + "=" * 55)
 print("  PHASE 3 COMPLETE")
-print("=" * 55)
-print(f"  heatmap_live.html     -> time-slider by month (demo wow)")
-print(f"  heatmap_clusters.html -> cluster map + patrol popups")
-print(f"\n  Open both files directly in any browser.")
-print(f"  heatmap_live.html is your MAIN demo slide.")
 print("=" * 55)

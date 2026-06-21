@@ -222,7 +222,7 @@ from sklearn.cluster import KMeans
 from sklearn.preprocessing import StandardScaler
 
 # ── CONFIG ───────────────────────────────────────────────────────────────────
-DATA_DIR     = Path("../data")
+DATA_DIR     = Path("./data")
 N_CLUSTERS   = 18  # chosen after testing k=6..20; 18 gave the best silhouette
                     # score (0.3255) while keeping every cluster a usable size
                     # (smallest cluster still has 600+ violations)

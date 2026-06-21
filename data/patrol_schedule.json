@@ -1,348 +1,522 @@
 [
   {
-    "cluster_id": 7,
+    "cluster_id": 8,
     "risk_score": 100.0,
     "priority": "CRITICAL",
     "top_station": "Upparpet",
-    "centroid_lat": 12.968676,
-    "centroid_lng": 77.570893,
+    "centroid_lat": 12.976448,
+    "centroid_lng": 77.58812,
     "patrol_windows": [
       {
         "start": 9,
         "end": 11,
         "label": "09:00 - 11:00",
-        "impact": 19713.54
+        "impact": 15826.36
       },
       {
         "start": 8,
         "end": 10,
         "label": "08:00 - 10:00",
-        "impact": 19210.18
+        "impact": 15085.84
       },
       {
         "start": 7,
         "end": 9,
         "label": "07:00 - 09:00",
-        "impact": 16227.86
+        "impact": 12869.12
       }
     ],
     "recommended_officers": 3
   },
   {
-    "cluster_id": 9,
-    "risk_score": 56.7,
-    "priority": "HIGH",
-    "top_station": "Shivajinagar",
-    "centroid_lat": 12.979723,
-    "centroid_lng": 77.613252,
+    "cluster_id": 1,
+    "risk_score": 74.3,
+    "priority": "CRITICAL",
+    "top_station": "Upparpet",
+    "centroid_lat": 12.975972,
+    "centroid_lng": 77.588491,
     "patrol_windows": [
       {
         "start": 9,
         "end": 11,
         "label": "09:00 - 11:00",
-        "impact": 11625.46
+        "impact": 13832.06
       },
       {
         "start": 8,
         "end": 10,
         "label": "08:00 - 10:00",
-        "impact": 10792.54
+        "impact": 13819.74
       },
       {
         "start": 7,
         "end": 9,
         "label": "07:00 - 09:00",
-        "impact": 10238.8
+        "impact": 12348.6
+      }
+    ],
+    "recommended_officers": 3
+  },
+  {
+    "cluster_id": 16,
+    "risk_score": 44.7,
+    "priority": "HIGH",
+    "top_station": "Malleshwaram",
+    "centroid_lat": 13.005416,
+    "centroid_lng": 77.553915,
+    "patrol_windows": [
+      {
+        "start": 9,
+        "end": 11,
+        "label": "09:00 - 11:00",
+        "impact": 9315.24
+      },
+      {
+        "start": 8,
+        "end": 10,
+        "label": "08:00 - 10:00",
+        "impact": 8325.02
+      },
+      {
+        "start": 7,
+        "end": 9,
+        "label": "07:00 - 09:00",
+        "impact": 7332.38
       }
     ],
     "recommended_officers": 2
   },
   {
-    "cluster_id": 1,
-    "risk_score": 56.4,
+    "cluster_id": 14,
+    "risk_score": 41.8,
     "priority": "HIGH",
     "top_station": "Upparpet",
-    "centroid_lat": 12.974501,
-    "centroid_lng": 77.588232,
+    "centroid_lat": 12.974309,
+    "centroid_lng": 77.578574,
     "patrol_windows": [
-      {
-        "start": 4,
-        "end": 6,
-        "label": "04:00 - 06:00",
-        "impact": 7610.24
-      },
       {
         "start": 5,
         "end": 7,
         "label": "05:00 - 07:00",
-        "impact": 7550.72
+        "impact": 5664.08
+      },
+      {
+        "start": 4,
+        "end": 6,
+        "label": "04:00 - 06:00",
+        "impact": 5508.56
       },
       {
         "start": 3,
         "end": 5,
         "label": "03:00 - 05:00",
-        "impact": 6387.68
+        "impact": 4444.88
       }
     ],
     "recommended_officers": 2
   },
   {
-    "cluster_id": 6,
-    "risk_score": 49.8,
-    "priority": "HIGH",
-    "top_station": "Malleshwaram",
-    "centroid_lat": 13.011278,
-    "centroid_lng": 77.55683,
-    "patrol_windows": [
-      {
-        "start": 9,
-        "end": 11,
-        "label": "09:00 - 11:00",
-        "impact": 10769.44
-      },
-      {
-        "start": 8,
-        "end": 10,
-        "label": "08:00 - 10:00",
-        "impact": 10143.98
-      },
-      {
-        "start": 7,
-        "end": 9,
-        "label": "07:00 - 09:00",
-        "impact": 8999.98
-      }
-    ],
-    "recommended_officers": 2
-  },
-  {
-    "cluster_id": 2,
-    "risk_score": 43.9,
-    "priority": "HIGH",
-    "top_station": "Upparpet",
-    "centroid_lat": 12.9746,
-    "centroid_lng": 77.575337,
-    "patrol_windows": [
-      {
-        "start": 9,
-        "end": 11,
-        "label": "09:00 - 11:00",
-        "impact": 10066.54
-      },
-      {
-        "start": 8,
-        "end": 10,
-        "label": "08:00 - 10:00",
-        "impact": 9155.96
-      },
-      {
-        "start": 7,
-        "end": 9,
-        "label": "07:00 - 09:00",
-        "impact": 7866.1
-      }
-    ],
-    "recommended_officers": 2
-  },
-  {
-    "cluster_id": 3,
-    "risk_score": 36.4,
+    "cluster_id": 7,
+    "risk_score": 36.0,
     "priority": "MEDIUM",
-    "top_station": "HAL Old Airport",
-    "centroid_lat": 12.956173,
-    "centroid_lng": 77.68801,
+    "top_station": "Malleshwaram",
+    "centroid_lat": 13.009325,
+    "centroid_lng": 77.55238,
     "patrol_windows": [
       {
-        "start": 7,
-        "end": 9,
-        "label": "07:00 - 09:00",
-        "impact": 8525.44
+        "start": 10,
+        "end": 12,
+        "label": "10:00 - 12:00",
+        "impact": 4332.98
       },
       {
-        "start": 8,
-        "end": 10,
-        "label": "08:00 - 10:00",
-        "impact": 7309.06
+        "start": 11,
+        "end": 13,
+        "label": "11:00 - 13:00",
+        "impact": 3782.94
       },
       {
-        "start": 9,
-        "end": 11,
-        "label": "09:00 - 11:00",
-        "impact": 6350.08
+        "start": 5,
+        "end": 7,
+        "label": "05:00 - 07:00",
+        "impact": 3030.96
       }
     ],
     "recommended_officers": 1
   },
   {
-    "cluster_id": 5,
-    "risk_score": 32.7,
+    "cluster_id": 2,
+    "risk_score": 24.9,
     "priority": "MEDIUM",
-    "top_station": "HAL Old Airport",
-    "centroid_lat": 12.962102,
-    "centroid_lng": 77.69186,
+    "top_station": "Vijayanagara",
+    "centroid_lat": 12.967735,
+    "centroid_lng": 77.537719,
     "patrol_windows": [
       {
-        "start": 5,
-        "end": 7,
-        "label": "05:00 - 07:00",
-        "impact": 4445.6
+        "start": 10,
+        "end": 12,
+        "label": "10:00 - 12:00",
+        "impact": 4008.2
       },
       {
-        "start": 4,
-        "end": 6,
-        "label": "04:00 - 06:00",
-        "impact": 4401.84
+        "start": 11,
+        "end": 13,
+        "label": "11:00 - 13:00",
+        "impact": 3577.84
       },
       {
-        "start": 3,
-        "end": 5,
-        "label": "03:00 - 05:00",
-        "impact": 4006.0
+        "start": 9,
+        "end": 11,
+        "label": "09:00 - 11:00",
+        "impact": 2932.38
       }
     ],
     "recommended_officers": 1
   },
   {
     "cluster_id": 11,
-    "risk_score": 25.2,
+    "risk_score": 24.4,
     "priority": "MEDIUM",
-    "top_station": "Vijayanagara",
-    "centroid_lat": 12.986939,
-    "centroid_lng": 77.543982,
-    "patrol_windows": [
-      {
-        "start": 4,
-        "end": 6,
-        "label": "04:00 - 06:00",
-        "impact": 4507.36
-      },
-      {
-        "start": 3,
-        "end": 5,
-        "label": "03:00 - 05:00",
-        "impact": 4449.04
-      },
-      {
-        "start": 5,
-        "end": 7,
-        "label": "05:00 - 07:00",
-        "impact": 4197.6
-      }
-    ],
-    "recommended_officers": 1
-  },
-  {
-    "cluster_id": 0,
-    "risk_score": 17.5,
-    "priority": "LOW",
-    "top_station": "HSR Layout",
-    "centroid_lat": 12.900161,
-    "centroid_lng": 77.621833,
-    "patrol_windows": [
-      {
-        "start": 10,
-        "end": 12,
-        "label": "10:00 - 12:00",
-        "impact": 3574.92
-      },
-      {
-        "start": 11,
-        "end": 13,
-        "label": "11:00 - 13:00",
-        "impact": 3430.56
-      },
-      {
-        "start": 12,
-        "end": 14,
-        "label": "12:00 - 14:00",
-        "impact": 2450.7
-      }
-    ],
-    "recommended_officers": 1
-  },
-  {
-    "cluster_id": 8,
-    "risk_score": 11.2,
-    "priority": "LOW",
     "top_station": "HAL Old Airport",
-    "centroid_lat": 12.9697,
-    "centroid_lng": 77.638577,
+    "centroid_lat": 12.963605,
+    "centroid_lng": 77.68509,
     "patrol_windows": [
       {
         "start": 7,
         "end": 9,
         "label": "07:00 - 09:00",
-        "impact": 5670.72
+        "impact": 4884.0
       },
       {
         "start": 8,
         "end": 10,
         "label": "08:00 - 10:00",
-        "impact": 5229.84
+        "impact": 4299.46
       },
       {
         "start": 9,
         "end": 11,
         "label": "09:00 - 11:00",
-        "impact": 4308.04
+        "impact": 3958.9
+      }
+    ],
+    "recommended_officers": 1
+  },
+  {
+    "cluster_id": 6,
+    "risk_score": 21.4,
+    "priority": "MEDIUM",
+    "top_station": "Shivajinagar",
+    "centroid_lat": 12.975708,
+    "centroid_lng": 77.574547,
+    "patrol_windows": [
+      {
+        "start": 9,
+        "end": 11,
+        "label": "09:00 - 11:00",
+        "impact": 5476.68
+      },
+      {
+        "start": 8,
+        "end": 10,
+        "label": "08:00 - 10:00",
+        "impact": 5115.88
+      },
+      {
+        "start": 7,
+        "end": 9,
+        "label": "07:00 - 09:00",
+        "impact": 4658.5
+      }
+    ],
+    "recommended_officers": 1
+  },
+  {
+    "cluster_id": 5,
+    "risk_score": 20.5,
+    "priority": "MEDIUM",
+    "top_station": "Shivajinagar",
+    "centroid_lat": 12.980589,
+    "centroid_lng": 77.618857,
+    "patrol_windows": [
+      {
+        "start": 11,
+        "end": 13,
+        "label": "11:00 - 13:00",
+        "impact": 3956.96
+      },
+      {
+        "start": 4,
+        "end": 6,
+        "label": "04:00 - 06:00",
+        "impact": 2803.2
+      },
+      {
+        "start": 10,
+        "end": 12,
+        "label": "10:00 - 12:00",
+        "impact": 2796.56
+      }
+    ],
+    "recommended_officers": 1
+  },
+  {
+    "cluster_id": 13,
+    "risk_score": 16.6,
+    "priority": "LOW",
+    "top_station": "HAL Old Airport",
+    "centroid_lat": 12.955945,
+    "centroid_lng": 77.686041,
+    "patrol_windows": [
+      {
+        "start": 7,
+        "end": 9,
+        "label": "07:00 - 09:00",
+        "impact": 5508.8
+      },
+      {
+        "start": 8,
+        "end": 10,
+        "label": "08:00 - 10:00",
+        "impact": 4831.2
+      },
+      {
+        "start": 9,
+        "end": 11,
+        "label": "09:00 - 11:00",
+        "impact": 3731.2
       }
     ],
     "recommended_officers": 1
   },
   {
     "cluster_id": 4,
-    "risk_score": 3.3,
+    "risk_score": 15.7,
     "priority": "LOW",
-    "top_station": "Kodigehalli",
-    "centroid_lat": 13.062096,
-    "centroid_lng": 77.59254,
+    "top_station": "HAL Old Airport",
+    "centroid_lat": 12.939025,
+    "centroid_lng": 77.695205,
     "patrol_windows": [
       {
-        "start": 10,
-        "end": 12,
-        "label": "10:00 - 12:00",
-        "impact": 2007.82
+        "start": 4,
+        "end": 6,
+        "label": "04:00 - 06:00",
+        "impact": 3068.88
       },
       {
-        "start": 11,
-        "end": 13,
-        "label": "11:00 - 13:00",
-        "impact": 1963.78
+        "start": 5,
+        "end": 7,
+        "label": "05:00 - 07:00",
+        "impact": 2894.72
       },
       {
         "start": 3,
         "end": 5,
         "label": "03:00 - 05:00",
-        "impact": 1590.56
+        "impact": 2668.56
+      }
+    ],
+    "recommended_officers": 1
+  },
+  {
+    "cluster_id": 17,
+    "risk_score": 7.5,
+    "priority": "LOW",
+    "top_station": "Jayanagara",
+    "centroid_lat": 12.923987,
+    "centroid_lng": 77.587121,
+    "patrol_windows": [
+      {
+        "start": 11,
+        "end": 13,
+        "label": "11:00 - 13:00",
+        "impact": 2386.02
+      },
+      {
+        "start": 10,
+        "end": 12,
+        "label": "10:00 - 12:00",
+        "impact": 2113.16
+      },
+      {
+        "start": 12,
+        "end": 14,
+        "label": "12:00 - 14:00",
+        "impact": 1387.54
+      }
+    ],
+    "recommended_officers": 1
+  },
+  {
+    "cluster_id": 0,
+    "risk_score": 5.1,
+    "priority": "LOW",
+    "top_station": "Kodigehalli",
+    "centroid_lat": 13.064593,
+    "centroid_lng": 77.593895,
+    "patrol_windows": [
+      {
+        "start": 10,
+        "end": 12,
+        "label": "10:00 - 12:00",
+        "impact": 2044.52
+      },
+      {
+        "start": 11,
+        "end": 13,
+        "label": "11:00 - 13:00",
+        "impact": 1876.98
+      },
+      {
+        "start": 9,
+        "end": 11,
+        "label": "09:00 - 11:00",
+        "impact": 1487.42
       }
     ],
     "recommended_officers": 1
   },
   {
     "cluster_id": 10,
-    "risk_score": 0.0,
+    "risk_score": 3.5,
     "priority": "LOW",
-    "top_station": "Chikkajala",
-    "centroid_lat": 13.182743,
-    "centroid_lng": 77.669312,
+    "top_station": "HAL Old Airport",
+    "centroid_lat": 12.971173,
+    "centroid_lng": 77.638457,
     "patrol_windows": [
       {
         "start": 7,
         "end": 9,
         "label": "07:00 - 09:00",
-        "impact": 1235.08
+        "impact": 3837.9
+      },
+      {
+        "start": 8,
+        "end": 10,
+        "label": "08:00 - 10:00",
+        "impact": 3351.7
+      },
+      {
+        "start": 9,
+        "end": 11,
+        "label": "09:00 - 11:00",
+        "impact": 2736.8
+      }
+    ],
+    "recommended_officers": 1
+  },
+  {
+    "cluster_id": 15,
+    "risk_score": 2.8,
+    "priority": "LOW",
+    "top_station": "K.R. Pura",
+    "centroid_lat": 12.998771,
+    "centroid_lng": 77.693073,
+    "patrol_windows": [
+      {
+        "start": 11,
+        "end": 13,
+        "label": "11:00 - 13:00",
+        "impact": 1309.28
+      },
+      {
+        "start": 10,
+        "end": 12,
+        "label": "10:00 - 12:00",
+        "impact": 1261.98
+      },
+      {
+        "start": 1,
+        "end": 3,
+        "label": "01:00 - 03:00",
+        "impact": 1071.28
+      }
+    ],
+    "recommended_officers": 1
+  },
+  {
+    "cluster_id": 3,
+    "risk_score": 2.0,
+    "priority": "LOW",
+    "top_station": "Chikkajala",
+    "centroid_lat": 13.183165,
+    "centroid_lng": 77.66965,
+    "patrol_windows": [
+      {
+        "start": 7,
+        "end": 9,
+        "label": "07:00 - 09:00",
+        "impact": 1206.48
       },
       {
         "start": 12,
         "end": 14,
         "label": "12:00 - 14:00",
-        "impact": 1182.72
+        "impact": 1179.92
       },
       {
         "start": 10,
         "end": 12,
         "label": "10:00 - 12:00",
         "impact": 1177.5
+      }
+    ],
+    "recommended_officers": 1
+  },
+  {
+    "cluster_id": 9,
+    "risk_score": 0.5,
+    "priority": "LOW",
+    "top_station": "HSR Layout",
+    "centroid_lat": 12.886133,
+    "centroid_lng": 77.646317,
+    "patrol_windows": [
+      {
+        "start": 11,
+        "end": 13,
+        "label": "11:00 - 13:00",
+        "impact": 1624.7
+      },
+      {
+        "start": 10,
+        "end": 12,
+        "label": "10:00 - 12:00",
+        "impact": 1391.22
+      },
+      {
+        "start": 12,
+        "end": 14,
+        "label": "12:00 - 14:00",
+        "impact": 1359.82
+      }
+    ],
+    "recommended_officers": 1
+  },
+  {
+    "cluster_id": 12,
+    "risk_score": 0.0,
+    "priority": "LOW",
+    "top_station": "Jayanagara",
+    "centroid_lat": 12.912777,
+    "centroid_lng": 77.606817,
+    "patrol_windows": [
+      {
+        "start": 9,
+        "end": 11,
+        "label": "09:00 - 11:00",
+        "impact": 2329.14
+      },
+      {
+        "start": 10,
+        "end": 12,
+        "label": "10:00 - 12:00",
+        "impact": 2006.32
+      },
+      {
+        "start": 7,
+        "end": 9,
+        "label": "07:00 - 09:00",
+        "impact": 1751.64
       }
     ],
     "recommended_officers": 1

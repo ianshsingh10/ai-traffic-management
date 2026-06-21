@@ -12,7 +12,7 @@ import ast
 from pathlib import Path
 
 # ── CONFIG ──────────────────────────────────────────────────────────────────
-INPUT_FILE = r"..\data\jan to may police violation_anonymized791b166.csv"
+INPUT_FILE = r".\data\jan to may police violation_anonymized791b166.csv"
 OUT_DIR     = Path("data")
 OUT_DIR.mkdir(exist_ok=True)
 

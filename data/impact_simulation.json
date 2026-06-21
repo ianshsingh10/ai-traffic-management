@@ -1,19 +1,19 @@
 {
   "methodology": "Same officer budget (18) and same total patrol hours in both scenarios. Baseline spreads officers evenly across all 54 stations with a fixed 09:00-11:00 window. AI-targeted concentrates officers on the highest-risk clusters during each cluster's own AI-identified peak window. Metric = total impact_score of violations occurring during the assigned patrol window, a proxy for enforcement opportunity, not a guarantee of violations prevented or fines issued.",
-  "total_officers": 18,
+  "total_officers": 24,
   "baseline": {
     "stations_covered": 54,
     "window": "09:00-11:00 (fixed, same for all stations)",
     "impact_covered": 70213.0
   },
   "ai_targeted": {
-    "clusters_covered": 12,
+    "clusters_covered": 18,
     "window": "per-cluster AI-identified peak window",
-    "impact_covered": 89752.16
+    "impact_covered": 90612.28
   },
   "improvement": {
-    "absolute": 19539.16,
-    "relative_pct": 27.8
+    "absolute": 20399.28,
+    "relative_pct": 29.1
   },
   "caveat": "This is a simulation based on historical violation timestamps, not a field trial. It estimates how much higher-impact activity falls within patrol windows under each strategy, assuming officer presence has equal deterrence effect per minute regardless of location."
 }
